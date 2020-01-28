@@ -43,7 +43,7 @@ window.onload = function() {
 function lookupPostcode(postcode) {
     var postcodeApi = new XMLHttpRequest();
     postcodeApi.addEventListener("load", checkLatLong);
-    postcodeApi.open("GET", "http://api.postcodes.io/postcodes/" + postcode);
+    postcodeApi.open("GET", "https://api.postcodes.io/postcodes/" + postcode);
     postcodeApi.send();
 }
 
