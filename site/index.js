@@ -17,19 +17,23 @@ function check() {
 
 function checkLatLong() {
     var result = JSON.parse(this.responseText)["result"];
+    if (result) {
+        var minDist = 99999;
+        var minGround;
+        grounds.forEach(ground => {
+            var dist = distance(result["latitude"], result["longitude"], 
+                    ground["Latitude"], ground["Longitude"]);
+            if (dist < minDist ) {
+                minDist = dist;
+                minGround = ground;
+            }
+        });
 
-    var minDist = 99999;
-    var minGround;
-    grounds.forEach(ground => {
-        var dist = distance(result["latitude"], result["longitude"], 
-                ground["Latitude"], ground["Longitude"]);
-        if (dist < minDist ) {
-            minDist = dist;
-            minGround = ground;
-        }
-    });
-
-    document.getElementById("resultVal").innerHTML = minGround["Name"];
+        document.getElementById("resultVal").innerHTML = minGround["Name"];
+    }
+    else {
+        document.getElementById("resultVal").innerHTML = "Sorry, postcode not found";
+    }
     document.getElementById("result").style.display="block";
 }
 
@@ -43,6 +47,11 @@ window.onload = function() {
 function lookupPostcode(postcode) {
     var postcodeApi = new XMLHttpRequest();
     postcodeApi.addEventListener("load", checkLatLong);
+    // postcodeApi.onreadystatechange = () => {
+    //     if(postcodeApi.readyState === XMLHttpRequest.DONE && postcodeApi.status != 200) {
+    //         console.log("NOT FOUND!!!!!");
+    //     }
+    // };
     postcodeApi.open("GET", "https://api.postcodes.io/postcodes/" + postcode);
     postcodeApi.send();
 }
