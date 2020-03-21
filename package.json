@@ -1,0 +1,24 @@
+{
+  "name": "whats-my-nearest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "dependencies": {
+    "http-server": "^0.12.1",
+    "httpserver": "^0.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/philc511/whats-my-nearest.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/philc511/whats-my-nearest/issues"
+  },
+  "homepage": "https://github.com/philc511/whats-my-nearest#readme"
+}

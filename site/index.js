@@ -15,6 +15,17 @@ function check() {
     lookupPostcode(postcode);
 };
 
+function getLocation() {
+    navigator.geolocation.getCurrentPosition(show_map);
+}
+
+function show_map(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    console.log(latitude + ": " + longitude);
+    // need to refacotr checkLatLong so it can be used from here adnd from API call
+  }
+
 function checkLatLong() {
     var result = JSON.parse(this.responseText)["result"];
     if (result) {
@@ -40,6 +51,9 @@ function checkLatLong() {
 window.onload = function() {
     var btn = document.getElementById("btn");
     btn.onclick = check;
+
+    var geolocbtn = document.getElementById("geolocbtn");
+    geolocbtn.onclick = getLocation;
 
     document.getElementById("result").style.display="none";
 }
