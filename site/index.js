@@ -26,26 +26,30 @@ function show_map(position) {
     // need to refactor checkLatLong so it can be used from here adnd from API call
   }
 
-function checkLatLong() {
+function get_from_api() {
     var result = JSON.parse(this.responseText)["result"];
     if (result) {
-        var minDist = 99999;
-        var minGround;
-        grounds.forEach(ground => {
-            var dist = distance(result["latitude"], result["longitude"], 
-                    ground["Latitude"], ground["Longitude"]);
-            if (dist < minDist ) {
-                minDist = dist;
-                minGround = ground;
-            }
-        });
-
-        document.getElementById("resultVal").innerHTML = minGround["Name"] + " (home of " + minGround["Team"] + ") is " + minDist.toFixed(1) + " miles away";
+        checkLatLong(result["latitude"], result["logitude"])
     }
     else {
         document.getElementById("resultVal").innerHTML = "Sorry, postcode not found";
     }
     document.getElementById("result").style.display="block";
+}
+ 
+function checkLatLong(lat, long) {
+    var minDist = 99999;
+    var minGround;
+    grounds.forEach(ground => {
+        var dist = distance(lat, long, 
+                ground["Latitude"], ground["Longitude"]);
+        if (dist < minDist ) {
+            minDist = dist;
+            minGround = ground;
+        }
+    });
+
+    document.getElementById("resultVal").innerHTML = minGround["Name"] + " (home of " + minGround["Team"] + ") is " + minDist.toFixed(1) + " miles away";
 }
 
 window.onload = function() {
@@ -60,7 +64,7 @@ window.onload = function() {
 
 function lookupPostcode(postcode) {
     var postcodeApi = new XMLHttpRequest();
-    postcodeApi.addEventListener("load", checkLatLong);
+    postcodeApi.addEventListener("load", get_from_api);
     // postcodeApi.onreadystatechange = () => {
     //     if(postcodeApi.readyState === XMLHttpRequest.DONE && postcodeApi.status != 200) {
     //         console.log("NOT FOUND!!!!!");
