@@ -23,7 +23,7 @@ function show_map(position) {
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
     console.log(latitude + ": " + longitude);
-    // need to refacotr checkLatLong so it can be used from here adnd from API call
+    // need to refactor checkLatLong so it can be used from here adnd from API call
   }
 
 function checkLatLong() {
